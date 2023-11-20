@@ -9,6 +9,9 @@ export default {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
     },
+    fontFamily: {
+      Inter: ["Inter", "sans-serif"],
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

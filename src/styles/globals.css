@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Inter";
+    src:url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+}
+
+h1 {
+    @apply font-Inter 
+}
+
+h2 {
+    @apply font-Inter 
+}
+h3 {
+    @apply font-Inter
+}
+h4 {
+    @apply font-Inter 
+}
+span {
+    @apply font-Inter 
+}
+p {
+    @apply font-Inter 
+}
