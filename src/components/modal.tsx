@@ -13,9 +13,10 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   tool?: Pick<Tools, "app_id" | "name">;
+  LastToolsViewed?: Tools[] | null;
 };
 
-const Modal = ({ isOpen, onClose,tool }: Props): JSX.Element => {
+const Modal = ({ isOpen, onClose,tool,LastToolsViewed }: Props): JSX.Element => {
   const [mount, setMount] = useState(false);
 
   useEffect(() => {
@@ -65,11 +66,10 @@ const Modal = ({ isOpen, onClose,tool }: Props): JSX.Element => {
                </div>
               </div>
               <div className="flex flex-col">
-                <h1 className="font-bold uppercase">ultimas ferramentas visualizadas</h1>
+              {LastToolsViewed?.map((tool) => (<h1 key={tool.app_id}>{tool.name}</h1>))}
+                <h1 className="font-bold uppercase">ultimas ferramentas visualizadas </h1>
                 <div className="flex flex-row gap-2">
-                  {/* <Card />
-                  <Card/>
-                  <Card/> */}
+                  
                 </div>
               </div>
               </div>

@@ -11,7 +11,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTool, setCurrentTool] = useState<string | null>(null);
-  const LastToolsViewed = []
+  const [LastToolsViewed, setLastToolsViewed] = useState<Tools[]>([]);
 
   const { isLoading, error, data } = useQuery<Tools[]>({
     queryKey: ["PlugaAPI"],
@@ -37,6 +37,14 @@ export default function Home() {
     setCurrentPage(page);
   };
 
+  const handleCurrentTool = (tool: Tools) => {
+    setCurrentTool(tool.app_id)
+    let toolAux = LastToolsViewed
+    toolAux.push(tool)
+    if(toolAux.length > 3) toolAux = toolAux.splice(1)
+    setLastToolsViewed(toolAux)
+  }
+  
   if (isLoading) return <div>Loading</div>;
 
   if (error) return <div>An error has occurred: {error.message}</div>;
@@ -60,7 +68,7 @@ export default function Home() {
       <div className="flex flex-wrap gap-4">
         {paginatedTools?.map((tool) => (
           <div key={tool.app_id}>
-            <Card logo={tool.icon} name={tool.name} onClick={() => setCurrentTool(tool.app_id)} />
+            <Card logo={tool.icon} name={tool.name} onClick={() => handleCurrentTool(tool)} />
           </div>
         ))}
       </div>
@@ -83,6 +91,7 @@ export default function Home() {
           isOpen={!!currentTool}
           onClose={() => setCurrentTool(null)}
           tool={paginatedTools?.find(p => p.app_id === currentTool)}
+          LastToolsViewed={LastToolsViewed}
         />
     </div>
   );
