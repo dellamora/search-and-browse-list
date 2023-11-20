@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Card from "~/components/card";
+import Modal from "~/components/modal";
 import { type Tools } from "~/domain/interfaces";
 
 const toolsPerpage = 12;
@@ -8,6 +10,8 @@ const toolsPerpage = 12;
 export default function Home() {
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentTool, setCurrentTool] = useState<string | null>(null);
+  const LastToolsViewed = []
 
   const { isLoading, error, data } = useQuery<Tools[]>({
     queryKey: ["PlugaAPI"],
@@ -56,7 +60,7 @@ export default function Home() {
       <div className="flex flex-wrap gap-4">
         {paginatedTools?.map((tool) => (
           <div key={tool.app_id}>
-            <Card logo={tool.icon} name={tool.name} />
+            <Card logo={tool.icon} name={tool.name} onClick={() => setCurrentTool(tool.app_id)} />
           </div>
         ))}
       </div>
@@ -75,6 +79,11 @@ export default function Home() {
           ))}
         </div>
       )}
+        <Modal
+          isOpen={!!currentTool}
+          onClose={() => setCurrentTool(null)}
+          tool={paginatedTools?.find(p => p.app_id === currentTool)}
+        />
     </div>
   );
 }
