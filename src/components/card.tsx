@@ -1,36 +1,31 @@
-import React, { useState } from "react";
-import Modal from "./modal";
-import Image from "next/image"
+/* eslint-disable @next/next/no-img-element */
+import { type Tools } from "~/domain/interfaces";
 
 type Props = {
-    name: string;
-    logo: string;
-    color?: string;
+    tool: Tools
     onClick?: () => void;
-}
-const Card = ({logo,name, onClick}: Props) => {
-    const [isOpen, setIsOpen] = useState(false);
+    className?: string;
+  };
+  
+  const Card = ({ tool, onClick, className }: Props) => {
     return (
-        <div 
-            
-            className="group border transition-colors bg-blue-500 border-gray-400 hover:border-blue-400 roudend rounded-md h-44 w-44 pt-12 px-8 pb-3 flex flex-col items-center justify-between"
-            style={{boxShadow:"rgba(0, 0, 0, 0.05) 0px 6px 18px 2px"}}
-        >
-            <div 
-            className="relative aspect-video w-full overflow-hidden">
-            <Image 
-                src={logo} 
-                layout="fill" 
-                objectFit="cover" 
-                alt="tool's logo"
-            />
-            </div>
-            <button onClick={onClick} className="transition-colors group-hover:text-blue-400 text-sm">
-                {name}
-            </button>
-            
+      <div
+        onClick={onClick}     
+        className={`group transition-colors bg-[#1E1E1E] roudend rounded-md h-44 w-44 items-center  p-8 pb-3 flex flex-col justify-between ${className}`}
+      >
+        <div className="relative aspect-w-1 aspect-h-1 w-full overflow-hidden">
+          <img
+            src={tool.icon}
+            alt="tool's logo"
+            className={`w-full h-full object-cover bg-[${tool?.color}`}
+          />
         </div>
+        <p className="transition-colors group-hover:text-blue-400 text-sm mt-1 text-center text-white">
+          {tool.name}
+        </p>
+      </div>
     )
-}
-
-export default Card;
+  }
+  
+  export default Card;
+  

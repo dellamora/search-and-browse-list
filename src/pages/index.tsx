@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Card from "~/components/card";
@@ -25,7 +24,7 @@ export default function Home() {
     return tool.name.toLowerCase().includes(query.toLowerCase());
   });
 
-  const totalItems = filteredTools?.length || 0;
+  const totalItems = filteredTools?.length ?? 0;
   const totalPages = Math.ceil(totalItems / toolsPerpage);
 
   const paginatedTools = filteredTools?.slice(
@@ -50,7 +49,7 @@ export default function Home() {
   if (error) return <div>An error has occurred: {error.message}</div>;
 
   return (
-    <div className="flex flex-col p-8 gap-4">
+    <div className="flex flex-col  gap-4 bg-[#1E1E1E] p-12 min-h-screen">
       <div className="relative mt-2 flex items-center">
         <input
           type="search"
@@ -62,13 +61,13 @@ export default function Home() {
             setQuery(e.target.value);
           }}
           placeholder="Buscar +90 ferramentas..."
-          className="pl-6 group border rounded-full transition-colors border-gray-400 focus:border-blue-400 focus:placeholder:text-blue-400 roudend block w-full py-3 pr-14 text-gray-600 placeholder:text-gray-400 placeholder:text-xl lg:text-xl sm:text-sm sm:leading-6"
+          className="pl-6 group border rounded-full transition-colors bg-[#1E1E1E] border-black focus:border-blue-400 focus:placeholder:text-blue-400 roudend block w-full py-3 pr-14 text-white placeholder:text-gray-400 placeholder:text-xl lg:text-xl sm:text-sm sm:leading-6"
         />
       </div>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-5 gap-y-8 justify-center">
         {paginatedTools?.map((tool) => (
           <div key={tool.app_id}>
-            <Card logo={tool.icon} name={tool.name} onClick={() => handleCurrentTool(tool)} />
+            <Card tool={tool}  onClick={() => handleCurrentTool(tool)} className="border  border-black  hover:border-blue-400 "/>
           </div>
         ))}
       </div>
@@ -79,7 +78,7 @@ export default function Home() {
               key={index}
               onClick={() => handlePageChange(index + 1)}
               className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-300"
+                currentPage === index + 1 ? "bg-black text-white" : "bg-[#131313] text-gray-400"
               }`}
             >
               {index + 1}
@@ -87,12 +86,12 @@ export default function Home() {
           ))}
         </div>
       )}
-        <Modal
-          isOpen={!!currentTool}
-          onClose={() => setCurrentTool(null)}
-          tool={paginatedTools?.find(p => p.app_id === currentTool)}
-          LastToolsViewed={LastToolsViewed}
-        />
+      <Modal
+        isOpen={!!currentTool}
+        onClose={() => setCurrentTool(null)}
+        tool={paginatedTools?.find(p => p.app_id === currentTool)}
+        LastToolsViewed={LastToolsViewed}
+      />
     </div>
-  );
+  )
 }
