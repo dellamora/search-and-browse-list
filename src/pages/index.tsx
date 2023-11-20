@@ -70,7 +70,7 @@ export default function Home() {
           className="pl-6 group border rounded-full transition-colors bg-[#1E1E1E] border-black focus:border-[#9C96FD] focus:placeholder:text-[#9C96FD] roudend block w-full py-3 pr-14 text-white placeholder:text-gray-400 placeholder:text-xl lg:text-xl sm:text-sm sm:leading-6"
         />
       </div>
-      <div className="flex flex-wrap gap-5 gap-y-8 justify-center h-[22rem]">
+      <div className="flex flex-wrap gap-5 gap-y-8 justify-center min-h-[22rem]">
         {paginatedTools?.map((tool) => (
           <div key={tool.app_id}>
             <Card tool={tool}  onClick={() => handleCurrentTool(tool)} className="border bg-[#131313] border-black  hover:border-[#9C96FD]  "/>
