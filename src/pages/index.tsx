@@ -52,7 +52,7 @@ export default function Home() {
   if (error) return <div>An error has occurred: {error.message}</div>;
 
   return (
-    <div className="absolute flex flex-col gap-4  bg-gradient-to-b from-[#1E1E1E] to-[#131313] p-12  min-h-screen w-screen overflow-hidden overscroll-none ">
+    <div className="absolute flex flex-col gap-4 items-center bg-gradient-to-b from-[#1E1E1E] to-[#131313] p-12  min-h-screen w-screen overflow-hidden overscroll-none ">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 ">
       <h1 className="text-xl font-extrabold tracking-tight text-white sm:text-[5rem]">
         Search <span className="text-[#9C96FD]">&</span> Browse
