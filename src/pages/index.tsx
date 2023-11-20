@@ -3,47 +3,78 @@ import { useState } from "react";
 import Card from "~/components/card";
 import { type Tools } from "~/domain/interfaces";
 
+const toolsPerpage = 12;
 
 export default function Home() {
   const [query, setQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { isLoading, error, data,  } = useQuery<Tools[]>({
+  const { isLoading, error, data } = useQuery<Tools[]>({
     queryKey: ["PlugaAPI"],
     queryFn: () =>
-      fetch("https://pluga.co/ferramentas_search.json").then(res =>
-        res.json(),
+      fetch("https://pluga.co/ferramentas_search.json").then((res) =>
+        res.json()
       ),
   });
 
-  const filterTools = data?.filter(tool => {
-    return tool.name.toLowerCase().includes(query.toLowerCase())
-  })
+  const filteredTools = data?.filter((tool) => {
+    return tool.name.toLowerCase().includes(query.toLowerCase());
+  });
+
+  const totalItems = filteredTools?.length || 0;
+  const totalPages = Math.ceil(totalItems / toolsPerpage);
+
+  const paginatedTools = filteredTools?.slice(
+    (currentPage - 1) * toolsPerpage,
+    currentPage * toolsPerpage
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   if (isLoading) return <div>Loading</div>;
 
-  if (error) return <div>An error has occurred: </div>;
+  if (error) return <div>An error has occurred: {error.message}</div>;
 
-  
   return (
-    <div className="flex flex-col p-8  gap-4">
+    <div className="flex flex-col p-8 gap-4">
       <div className="relative mt-2 flex items-center">
         <input
           type="search"
           name="search"
           id="search"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setCurrentPage(1); 
+            setQuery(e.target.value);
+          }}
           placeholder="Buscar +90 ferramentas..."
-          className="pl-6 group border rounded-full transition-colors border-gray-400  focus:border-blue-400 focus:placeholder:text-blue-400 roudend block w-full  py-3 pr-14 text-gray-600    placeholder:text-gray-400  placeholder:text-xl lg:text-xl  sm:text-sm sm:leading-6"
+          className="pl-6 group border rounded-full transition-colors border-gray-400 focus:border-blue-400 focus:placeholder:text-blue-400 roudend block w-full py-3 pr-14 text-gray-600 placeholder:text-gray-400 placeholder:text-xl lg:text-xl sm:text-sm sm:leading-6"
         />
       </div>
-      {filterTools?.map(tool => {
-        return (
+      <div className="flex flex-wrap gap-4">
+        {paginatedTools?.map((tool) => (
           <div key={tool.app_id}>
-          <Card logo={tool.icon} name={tool.name}/>
+            <Card logo={tool.icon} name={tool.name} />
           </div>
-        )
-      })}
+        ))}
+      </div>
+      {totalPages > 1 && (
+        <div className="flex mt-4 justify-center">
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`mx-1 px-3 py-1 rounded ${
+                currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-300"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
