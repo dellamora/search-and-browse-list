@@ -56,7 +56,11 @@ const Modal = ({ isOpen, onClose,tool,LastToolsViewed }: Props): JSX.Element => 
                     <p  className="transition-colors group-hover:text-blue-400 text-4xl font-extrabold ">
                       {tool.name}
                     </p>
-                    <a className="rounded-md border border-black py-1 px-2 font-semibold text-white transition-colors hover:bg-[#000000]/20" href={tool.link}>
+                    <a 
+                      className="rounded-md border border-black py-1 px-2 font-semibold text-white transition-colors hover:bg-[#000000]/20" 
+                      href={tool.link}
+                      target="_blank"
+                    >
                       Saiba mais
                     </a>
                </div>
