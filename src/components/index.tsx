@@ -38,13 +38,10 @@ export default function Home() {
 
   const handleCurrentTool = (tool: Tools) => {
     setCurrentTool(tool.app_id)
-    if (!LastToolsViewed.some((t) => t.app_id === tool.app_id)) {
-
-      let toolAux = LastToolsViewed
-      toolAux.push(tool)
-      if(toolAux.length > 3) toolAux = toolAux.splice(1)
-      setLastToolsViewed(toolAux)
-    }
+    let toolAux = LastToolsViewed
+    toolAux.push(tool)
+    if(toolAux.length > 3) toolAux = toolAux.splice(1)
+    setLastToolsViewed(toolAux)
   }
   
   if (isLoading) return <div>Loading</div>;
@@ -52,11 +49,8 @@ export default function Home() {
   if (error) return <div>An error has occurred: {error.message}</div>;
 
   return (
-    <div className="flex flex-col gap-4  bg-gradient-to-b from-[#1E1E1E] to-[#131313] p-12  min-h-screen ">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 ">
-      <h1 className="text-xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-        Search <span className="text-[#9C96FD]">&</span> Browse
-          </h1>
+    <div className="flex flex-col gap-4 bg-[#1E1E1E] p-12  min- screen ">
+      <div className="relative mt-2 flex items-center">
         <input
           type="search"
           name="search"
@@ -73,7 +67,7 @@ export default function Home() {
       <div className="flex flex-wrap gap-5 gap-y-8 justify-center">
         {paginatedTools?.map((tool) => (
           <div key={tool.app_id}>
-            <Card tool={tool}  onClick={() => handleCurrentTool(tool)} className="border bg-[#131313] border-black  hover:border-[#9C96FD]  "/>
+            <Card tool={tool}  onClick={() => handleCurrentTool(tool)} className="border  border-black  hover:border-[#9C96FD]  "/>
           </div>
         ))}
       </div>
@@ -83,7 +77,7 @@ export default function Home() {
             <button
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={`mx-1 px-3 py-1 rounded border border-black  ${
+              className={`mx-1 px-3 py-1 rounded ${
                 currentPage === index + 1 ? "bg-black text-white" : "bg-[#131313] text-gray-400"
               }`}
             >
