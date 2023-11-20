@@ -33,37 +33,36 @@ const Modal = ({ isOpen, onClose,tool,LastToolsViewed }: Props): JSX.Element => 
             animate={{ opacity: 1 }}
             className="pointer-events-none fixed z-50 flex h-screen  w-screen  items-center justify-center"
           >
-            <div className="text-white pointer-events-auto relative flex h-auto w-fit flex-col overflow-y-hidden  rounded-lg bg-[#1E1E1E] md:w-1/2 lg:max-h-[90vh]  p-8 ">
+            <div className="text-white pointer-events-auto relative flex h-auto w-fit flex-col overflow-y-hidden  rounded-lg bg-[#1E1E1E] md:w-1/2 p-8 ">
               <button
-                className="absolute top-1 right-1 block md:hidden"
+                className="absolute top-1 right-2 block text-white"
                 onClick={() => {
                   onClose();
                 }}
               >
                 X
               </button>
-              <div className="flex  flex-col justify-center">
-              <div className="flex items-center">
-                <div 
-                  className="relative aspect-video w-44 overflow-hidden h-20">
-                <Image 
+              <div className="flex flex-col justify-center">
+              <div className="flex items-center ">
+                <div className="relative aspect-video w-44 overflow-hidden h-20">
+                  <Image 
                     src={tool.icon} 
                     layout="fill" 
                     objectFit="contain" 
                     alt="tool's logo"
-                    />
+                   />
                 </div>
-                  <div className="pl-4">
-                    <p  className="transition-colors group-hover:text-blue-400 text-3xl ">
+                  <div className="pl-4 flex flex-col gap-1  justify-center items-center w-1/2 ">
+                    <p  className="transition-colors group-hover:text-blue-400 text-4xl font-extrabold ">
                       {tool.name}
                     </p>
-                    <a className=" rounded-md 0 text-bold hover:underline text-xl" href={tool.link}>
+                    <a className="rounded-md border border-black py-1 px-2 font-semibold text-white transition-colors hover:bg-[#000000]/20" href={tool.link}>
                       Saiba mais
                     </a>
                </div>
               </div>
-              <div className="flex flex-col">              
-                <h1 className="font-bold uppercase">ultimas ferramentas visualizadas </h1>
+              <div className="flex flex-col mt-4">              
+                <h1 className="font-bold text-2xl">Últimas ferramentas visualizadas:</h1>
                 <div className="flex flex-row gap-2">
                 {LastToolsViewed?.map((tool) => {
                   return (
