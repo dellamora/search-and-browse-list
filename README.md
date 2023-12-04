@@ -2,13 +2,44 @@
 
 This project aims to develop a user-friendly interface for browsing and searching through integrated apps on Pluga. The main features include a card-based app listing and a search bar, with pagination displaying 12 apps per page.
 
-[Demo](https://search-and-browse.vercel.app/)
+![App](/public/app.gif)
+
+[Check out the live demo here](https://search-and-browse.vercel.app/)
 
 
+## Setup Your Project
+
+To set up this project locally, follow these steps:
+
+1. Clone the repository: 
+```
+git clone https://github.com/your-username/search-and-browse.git
+```
+2. Navigate to the project directory:
+ ```
+ cd search-and-browse
+ ```
+3. Install dependencies: 
+```
+yarn
+```
+4. Run the development server: 
+```
+yarn dev
+```
+
+
+
+## Tech Stack 
+
+- Next.js 
+- TypeScript
+- Framer Motion
+- React Query
+- Tailwind
 
 ## Contact
 
-Twitter: [@francidellamora](https://twitter.com/francidellamora) 
+Feel free to reach out for any questions or feedback:
 
-### License
-This project is licensed under the MIT License.
+Twitter: [@francidellamora](https://twitter.com/francidellamora) 
