@@ -1,14 +1,4 @@
-export interface BaseSearchResponse<T> {
-    info: Info;
-    results: T[];
-  }
-  export interface Info {
-    count: number;
-    pages: number;
-    next?: string
-    prev?: string
-  }
-export interface Tools {
+export interface Tool {
     app_id: string;
     name:   string;
     color:  string;
