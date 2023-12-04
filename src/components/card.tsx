@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { type Tools } from "~/domain/interfaces";
+import { type Tool } from "~/domain/interfaces";
 
 type Props = {
-    tool: Tools
+    tool: Tool
     onClick?: () => void;
     className?: string;
   };
@@ -10,17 +10,19 @@ type Props = {
   const Card = ({ tool, onClick, className }: Props) => {
     return (
       <div
-        onClick={onClick}     
-        className={`group transition-colors  roudend rounded-md h-40 w-40 items-center  p-8 pb-3 flex flex-col justify-between ${className}`}
+        onClick={onClick} 
+        style={{background: tool.color}}    
+        className={`roudend rounded-md h-40 w-40 items-center  p-8 pb-3 flex flex-col justify-between ${className}`}
       >
-        <div className="relative aspect-w-1 aspect-h-1 w-full overflow-hidden">
+        <div className="relative w-full h-full overflow-hidden">
           <img
             src={tool.icon}
             alt="tool's logo"
-            className={`w-full h-full object-cover bg-[${tool?.color}`}
+            className={`p-2 rounded-md`}
+            style={{background: tool.color}}
           />
         </div>
-        <p className="transition-colors group-hover:text-[#9C96FD] text-sm mt-1 text-center text-white">
+        <p className="transition-colors text-sm mt-1 text-center  text-white">
           {tool.name}
         </p>
       </div>

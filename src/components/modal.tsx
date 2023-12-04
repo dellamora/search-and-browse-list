@@ -3,17 +3,16 @@ import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Backdrop from "./backdrop";
 import { motion } from "framer-motion";
-import { type Tools } from "~/domain/interfaces";
-import Image from "next/image";
+import { type Tool } from "~/domain/interfaces";
 import Card from "./card";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  tool?: Tools;
-  LastToolsViewed?: Tools[] | null;
+  tool: Tool  | null;
+  LastToolsViewed: Tool[]
 };
 
-const Modal = ({ isOpen, onClose,tool,LastToolsViewed }: Props): JSX.Element => {
+const Modal = ({ isOpen, onClose, tool, LastToolsViewed }: Props): JSX.Element => {
   const [mount, setMount] = useState(false);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const Modal = ({ isOpen, onClose,tool,LastToolsViewed }: Props): JSX.Element => 
             animate={{ opacity: 1 }}
             className="pointer-events-none fixed z-50 flex h-screen  w-screen  items-center justify-center"
           >
-            <div className="text-white pointer-events-auto relative flex h-auto w-fit flex-col overflow-y-hidden  rounded-lg bg-[#1E1E1E] md:w-1/2 p-8 ">
+            <div className="text-white pointer-events-auto relative flex h-auto w-fit flex-col overflow-y-hidden rounded-lg p-8 " style={{background: tool.color}}>
               <button
                 className="absolute top-1 right-2 block text-white"
                 onClick={() => {
@@ -42,28 +41,26 @@ const Modal = ({ isOpen, onClose,tool,LastToolsViewed }: Props): JSX.Element => 
               >
                 X
               </button>
-              <div className="flex flex-col justify-center">
-              <div className="flex items-center ">
-                <div className="relative aspect-video w-44 overflow-hidden h-20">
-                  <Image 
-                    src={tool.icon} 
-                    layout="fill" 
-                    objectFit="contain" 
-                    alt="tool's logo"
-                   />
-                </div>
+              <div className="flex flex-col justify-center items-center">
+              <div className="relative w-24 h-24 overflow-hidden">
+                <img
+                  src={tool.icon}
+                  alt="tool's logo"
+                  className={`p-2 rounded-md`}
+                  style={{background: tool.color}}
+                />
+              </div>
                   <div className="pl-4 flex flex-col gap-1  justify-center items-center w-1/2 ">
                     <p  className="transition-colors group-hover:text-blue-400 text-4xl font-extrabold ">
                       {tool.name}
                     </p>
                     <a 
-                      className="rounded-md border border-black py-1 px-2 font-semibold text-white transition-colors hover:bg-[#000000]/20" 
+                      className="rounded-md py-1 px-2 font-semibold text-white transition-colors hover:bg-[#000000]/20" 
                       href={tool.link}
                       target="_blank"
                     >
                       Saiba mais
                     </a>
-               </div>
               </div>
               <div className="flex flex-col mt-4">              
                 <h1 className="font-bold text-2xl">Últimas ferramentas visualizadas:</h1>
